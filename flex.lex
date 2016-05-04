@@ -12,6 +12,8 @@
 %%
 
 "ls"			{return C_LS;}//--------Lista o conteúdo do diretório atual
+"quit"			{return C_QUIT;}//------Encerra o shell
+
 
 [ \t]        			;//---------------------Ignore	
 \n						{return T_NEWLINE;}//--- To line break
