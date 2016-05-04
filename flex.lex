@@ -11,15 +11,15 @@
  
 %%
 
-"ls"			{return C_LS;}//--------Lista o conteúdo do diretório atual
-"ps"			{return C_PS;}//--------Lista todos os processos do usuário
-"ifconfig"		{return C_IFCONFIG;}//--Exibe as informações de todas as interfaces de rede do sistema
-"quit"			{return C_QUIT;}//------Encerra o shell
+"ls"			{return S_LS;}//--------Lista o conteúdo do diretório atual
+"ps"			{return S_PS;}//--------Lista todos os processos do usuário
+"ifconfig"		{return S_IFCONFIG;}//--Exibe as informações de todas as interfaces de rede do sistema
+"quit"			{return S_QUIT;}//------Encerra o shell
 
 
 [ \t]        			;//---------------------Ignore	
 \n						{return T_NEWLINE;}//--- To line break
-[~a-zA-Z0-9\.-]*		{yylval.text = (yytext); return C_ID;}//-------- Type input String
+[~a-zA-Z0-9\.-]*		{yylval.text = (yytext); return S_ID;}//-------- Type input String
 
 
 %%

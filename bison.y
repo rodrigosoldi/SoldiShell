@@ -30,16 +30,16 @@ void yyerror(const char* s);
 %token<integer> T_INT
 %token<pFloat> T_FLOAT
 
-%token C_LS
-%token C_PS 
-%token C_IFCONFIG
-%token C_QUIT 
+%token S_LS
+%token S_PS 
+%token S_IFCONFIG
+%token S_QUIT 
 
-%token C_ID
+%token S_ID
 %token T_NEWLINE
 
 %type<string> comand
-%type<text> C_ID
+%type<text> S_ID
 %start soldishell
 
 %%
@@ -52,10 +52,10 @@ line: T_NEWLINE												{ start();}
 		  | comand T_NEWLINE								{ start();}		  						
 ;
 
-comand:  C_LS 									{ $$ = system("/bin/ls"); }
-		| C_PS									{ $$ = system("/bin/ps"); }
-		| C_IFCONFIG 							{ $$ = system("ifconfig"); }
-		| C_QUIT T_NEWLINE 						{ printf("Terminating Soldishell\n"); exit(0); }
+comand:  S_LS 									{ $$ = system("/bin/ls"); }
+		| S_PS									{ $$ = system("/bin/ps"); }
+		| S_IFCONFIG 							{ $$ = system("ifconfig"); }
+		| S_QUIT T_NEWLINE 						{ printf("Terminating Soldishell\n"); exit(0); }
 ;
 
 %%
