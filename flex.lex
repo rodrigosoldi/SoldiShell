@@ -17,6 +17,7 @@
 "rmdir" 		{return S_RMDIR;}//-----Remove o diretório 
 "ifconfig"		{return S_IFCONFIG;}//--Exibe as informações de todas as interfaces de rede do sistema
 "start"			{return S_START;}//-----Invoca a execução do programa id
+"echo"			{return S_ECHO;}//-----Imprime uma string na tela
 "touch"			{return S_TOUCH;}//-----Cria um arquivo com o nome id
 "quit"			{return S_QUIT;}//------Encerra o shell
 
