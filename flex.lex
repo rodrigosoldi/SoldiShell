@@ -13,6 +13,8 @@
 "ls"			{return S_LS;}//--------Lista o conteúdo do diretório atual
 "ps"			{return S_PS;}//--------Lista todos os processos do usuário
 "tree"			{return S_TREE;}//------Lista em forma de arvore
+"mkdir"			{return S_MKDIR;}//-----Cria um diretorio
+"rmdir" 		{return S_RMDIR;}//-----Remove o diretório 
 "ifconfig"		{return S_IFCONFIG;}//--Exibe as informações de todas as interfaces de rede do sistema
 "touch"			{return S_TOUCH;}//-----Cria um arquivo com o nome id
 "quit"			{return S_QUIT;}//------Encerra o shell
