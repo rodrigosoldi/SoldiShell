@@ -75,8 +75,8 @@ comand:  S_LS 									{ $$ = system("/bin/ls"); }
 		| S_ECHO S_ID 							{ char comand[2048] = "/bin/echo "; 	
 												  $$ = system(strcat(comand,$2)); 
 												}
-		| S_START S_ID 							{ strcat($2,"&");
-												  $$ = system($2);  
+		| S_START S_ID 							{ 
+												  $$ = system(strcat($2,"&"));  
 												}
 		| S_QUIT T_NEWLINE 						{ printf("Terminating Soldishell\n"); exit(0); }
 ;
