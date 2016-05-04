@@ -13,6 +13,7 @@
 
 "ls"			{return C_LS;}//--------Lista o conteúdo do diretório atual
 "ps"			{return C_PS;}//--------Lista todos os processos do usuário
+"ifconfig"		{return C_IFCONFIG;}//--Exibe as informações de todas as interfaces de rede do sistema
 "quit"			{return C_QUIT;}//------Encerra o shell
 
 
