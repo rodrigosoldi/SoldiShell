@@ -37,6 +37,7 @@ void yyerror(const char* s);
 %token S_MKDIR
 %token S_IFCONFIG
 %token S_TOUCH
+%token S_START
 %token S_QUIT 
 
 %token S_ID
@@ -69,6 +70,9 @@ comand:  S_LS 									{ $$ = system("/bin/ls"); }
 		| S_IFCONFIG 							{ $$ = system("ifconfig"); }
 		| S_TOUCH S_ID 							{ char comand[2048] = "/bin/touch "; 	
 												  $$ = system(strcat(comand,$2)); 
+												}
+		| S_START S_ID 							{ strcat($2,"&");
+												  $$ = system($2);  
 												}
 		| S_QUIT T_NEWLINE 						{ printf("Terminating Soldishell\n"); exit(0); }
 ;
