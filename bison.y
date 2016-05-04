@@ -31,7 +31,9 @@ void yyerror(const char* s);
 %token<pFloat> T_FLOAT
 
 %token C_LS
+%token C_PS 
 %token C_QUIT 
+
 %token C_ID
 %token T_NEWLINE
 
@@ -51,6 +53,7 @@ line: T_NEWLINE												{ start();}
 
 comand:  C_LS 									{ $$ = system("/bin/ls"); }
 		| C_QUIT T_NEWLINE 						{ printf("Terminating Soldishell\n"); exit(0); }
+		| C_PS									{ $$ = system("/bin/ps"); }
 ;
 
 %%

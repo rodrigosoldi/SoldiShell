@@ -12,6 +12,7 @@
 %%
 
 "ls"			{return C_LS;}//--------Lista o conteúdo do diretório atual
+"ps"			{return C_PS;}//--------Lista todos os processos do usuário
 "quit"			{return C_QUIT;}//------Encerra o shell
 
 
