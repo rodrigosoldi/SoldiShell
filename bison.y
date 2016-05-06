@@ -33,6 +33,7 @@ void yyerror(const char* s);
 %token S_LS
 %token S_PS
 %token S_CD
+%token S_KILL
 %token S_RM
 %token S_TREE 
 %token S_RMDIR
@@ -57,10 +58,9 @@ soldishell:
 	   | soldishell line										
 ;
 
-line: T_NEWLINE												{ start();}
-		  | comand T_NEWLINE								{ start();}						
+line: T_NEWLINE	{ start();}
+	| comand T_NEWLINE	{ start();}						
 ;
-
 
 comand:  
 		//Comando LS
@@ -70,15 +70,16 @@ comand:
 
 		|
 
-		//Comando PS
+		// Comando PS
 		S_PS { 
 			$$ = system("/bin/ps"); 
 		}
 
 		| 
 
-		//Comando CD
+		// Comando CD
 		S_CD S_ID 	{ 
+
 			char comand[2048];
 		  	int isValidComand;
 		 	int aux = strcmp("..",$2); // Comparando se eh pra voltar uma pasta
@@ -101,6 +102,14 @@ comand:
 	   		}
 	   	}
 
+	   	|
+
+	   	// Comando KILL
+	   	S_KILL S_ID {
+	   		char comand[2048] = "kill "; 
+			$$ = system(strcat(comand,$2));
+	   	}
+
 		| 
 
 		// Comando TREE
@@ -112,7 +121,9 @@ comand:
 
 		// Comando RMDIR
 		S_RMDIR S_ID { 
-			char comand[2048] = "/bin/rmdir "; 	//Testei sem criar essa variavel, porem nao funciona porque eh necessario alocar espaco de memoria
+			//Testei sem criar essa variavel, 
+			// porem nao funciona porque eh necessario alocar espaco de memoria
+			char comand[2048] = "/bin/rmdir "; 	
 			$$ = system(strcat(comand,$2)); 
 		}
 
@@ -152,7 +163,7 @@ comand:
 		// Comando ECHO
 		S_ECHO S_ID { 
 			char comand[2048] = "/bin/echo "; 	
-												  $$ = system(strcat(comand,$2)); 
+			$$ = system(strcat(comand,$2)); 
 		}
 
 		| 
