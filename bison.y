@@ -47,9 +47,13 @@ void yyerror(const char* s);
 
 %token S_PLUS
 %token S_MINUS
+%token S_MULTIPLE
+%token S_DIVIDE
 
 %left S_PLUS
 %left S_MINUS
+%left S_MULTIPLE
+%left S_DIVIDE
 
 %token S_ID
 %token S_NEWLINE
@@ -223,7 +227,6 @@ comand:
 
 expression: 
 	S_INT {
-		printf("SOLDI\n");
 		$$ = $1; 
 	}
 
@@ -237,6 +240,18 @@ expression:
 
 	expression S_MINUS expression{
 		$$ = $1 - $3;
+	}
+
+	|
+
+	expression S_MULTIPLE expression{
+		$$ = $1 * $3;
+	}
+
+	|
+
+	expression S_DIVIDE expression{
+			$$ = $1 / $3;
 	}
 ;
 
@@ -255,6 +270,18 @@ float_expression:
 
 	float_expression S_MINUS float_expression {
 		$$ = $1 + $3;
+	}
+
+	|
+
+	float_expression S_MULTIPLE float_expression {
+		$$ = $1 * $3;
+	}
+
+	|
+
+	float_expression S_DIVIDE float_expression {
+		$$ = $1 / $3;
 	}
 ;
 

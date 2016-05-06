@@ -28,6 +28,14 @@
 	return S_MINUS; //Subtracao
 }
 
+"*" {
+	return S_MULTIPLE; //Multiplicacao
+}
+
+"/" {
+	return S_DIVIDE; //Divisao
+}
+
 "ls" {
 	return S_LS; //--------Lista o conteúdo do diretório atual
 }
