@@ -49,6 +49,7 @@ void yyerror(const char* s);
 %token T_NEWLINE
 
 %type<integer> expression
+%type<pFloat> float_expression
 %type<string> comand
 %type<text> S_ID
 %start soldishell
@@ -59,9 +60,30 @@ soldishell:
 	   | soldishell line										
 ;
 
-line: T_NEWLINE												{ start();}
-		  | expression T_NEWLINE 							{ printf("\n\nValor = %i\n\n\n", $1); start();} 
-		  | comand T_NEWLINE								{ start();}
+line: 
+	T_NEWLINE	{ 
+		start();
+	}
+	
+	| 
+
+	expression T_NEWLINE  { 
+		printf("\n\nValor = %i\n\n\n", $1); 
+		start();
+	} 
+
+	|
+
+	float_expression T_NEWLINE{
+		printf("\n\nValor = %f\n\n\n", $1); 
+		start();
+	}
+
+	| 
+
+	comand T_NEWLINE { 
+		start();
+	}
 		  						
 ;
 
@@ -193,8 +215,14 @@ comand:
 ;
 
 expression: 
-	T_INT	{
+	T_INT {
 		$$ = $1; 
+	}
+;
+
+float_expression:
+	T_FLOAT {
+		$$ = $1;
 	}
 ;
 

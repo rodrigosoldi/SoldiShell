@@ -10,6 +10,11 @@
  
 %%
 
+[0-9]+\.[0-9]+ {
+	yylval.pFloat = atoi(yytext); 
+	return T_FLOAT; //Pontos flutuantes
+}
+
 [0-9]+	{
 	yylval.integer = atoi(yytext); 
 	return T_INT; //Apenas numeros inteiros
