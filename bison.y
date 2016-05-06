@@ -48,6 +48,7 @@ void yyerror(const char* s);
 %token S_ID
 %token T_NEWLINE
 
+%type<integer> expression
 %type<string> comand
 %type<text> S_ID
 %start soldishell
@@ -58,8 +59,10 @@ soldishell:
 	   | soldishell line										
 ;
 
-line: T_NEWLINE	{ start();}
-	| comand T_NEWLINE	{ start();}						
+line: T_NEWLINE												{ start();}
+		  | expression T_NEWLINE 							{ printf("\n\nValor = %i\n\n\n", $1); start();} 
+		  | comand T_NEWLINE								{ start();}
+		  						
 ;
 
 comand:  
@@ -187,6 +190,12 @@ comand:
 		S_CLEAR { 
 			$$ = system("clear");  
 		}
+;
+
+expression: 
+	T_INT	{
+		$$ = $1; 
+	}
 ;
 
 %%

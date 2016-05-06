@@ -10,6 +10,10 @@
  
 %%
 
+[0-9]+	{
+	yylval.integer = atoi(yytext); 
+	return T_INT; //Apenas numeros inteiros
+}
 
 "ls" {
 	return S_LS; //--------Lista o conteúdo do diretório atual
