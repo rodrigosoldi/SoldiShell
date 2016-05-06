@@ -12,12 +12,20 @@
 
 [0-9]+\.[0-9]+ {
 	yylval.pFloat = atoi(yytext); 
-	return T_FLOAT; //Pontos flutuantes
+	return S_FLOAT; //Pontos flutuantes
 }
 
 [0-9]+	{
 	yylval.integer = atoi(yytext); 
-	return T_INT; //Apenas numeros inteiros
+	return S_INT; //Apenas numeros inteiros
+}
+
+"+" {
+	return S_PLUS; //Soma
+}
+
+"-" {
+	return S_MINUS; //Subtracao
 }
 
 "ls" {
@@ -78,7 +86,7 @@
 
 
 [ \t]        			;//---------------------Ignore	
-\n						{return T_NEWLINE;}//--- To line break
+\n						{return S_NEWLINE;}//--- To line break
 [~a-zA-Z0-9\.-]*		{yylval.text = (yytext); return S_ID;}//-------- Type input String
 
 

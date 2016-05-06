@@ -27,8 +27,8 @@ void yyerror(const char* s);
 	char* text;
 }
 
-%token<integer> T_INT
-%token<pFloat> T_FLOAT
+%token<integer> S_INT
+%token<pFloat> S_FLOAT
 
 %token S_LS
 %token S_PS
@@ -45,13 +45,20 @@ void yyerror(const char* s);
 %token S_QUIT
 %token S_CLEAR 
 
+%token S_PLUS
+%token S_MINUS
+
+%left S_PLUS
+%left S_MINUS
+
 %token S_ID
-%token T_NEWLINE
+%token S_NEWLINE
 
 %type<integer> expression
 %type<pFloat> float_expression
 %type<string> comand
 %type<text> S_ID
+
 %start soldishell
 
 %%
@@ -61,27 +68,27 @@ soldishell:
 ;
 
 line: 
-	T_NEWLINE	{ 
+	S_NEWLINE	{ 
 		start();
 	}
 	
 	| 
 
-	expression T_NEWLINE  { 
-		printf("\n\nValor = %i\n\n\n", $1); 
+	expression S_NEWLINE  { 
+		printf("\n\nValor = %i \n\n\n", $1); 
 		start();
 	} 
 
 	|
 
-	float_expression T_NEWLINE{
-		printf("\n\nValor = %f\n\n\n", $1); 
+	float_expression S_NEWLINE{
+		printf("\n\nValor = %f \n\n\n", $1); 
 		start();
 	}
 
 	| 
 
-	comand T_NEWLINE { 
+	comand S_NEWLINE { 
 		start();
 	}
 		  						
@@ -201,7 +208,7 @@ comand:
 		| 
 
 		// Comando QUIT
-		S_QUIT T_NEWLINE { 
+		S_QUIT S_NEWLINE { 
 			printf("Terminating Soldishell\n"); 
 			exit(0); 
 		}
@@ -215,14 +222,39 @@ comand:
 ;
 
 expression: 
-	T_INT {
+	S_INT {
+		printf("SOLDI\n");
 		$$ = $1; 
+	}
+
+	|
+
+	expression S_PLUS expression{
+		$$ = $1 + $3;
+	}
+
+	|
+
+	expression S_MINUS expression{
+		$$ = $1 - $3;
 	}
 ;
 
 float_expression:
-	T_FLOAT {
+	S_FLOAT {
 		$$ = $1;
+	}
+
+	|
+
+	float_expression S_PLUS float_expression {
+		$$ = $1 + $3;
+	}
+
+	|
+
+	float_expression S_MINUS float_expression {
+		$$ = $1 + $3;
 	}
 ;
 
