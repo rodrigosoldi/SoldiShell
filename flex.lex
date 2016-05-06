@@ -10,12 +10,12 @@
  
 %%
 
-[0-9]+\.[0-9]+ {
+[\+\-]?[0-9]+\.[0-9]+ {
 	yylval.pFloat = atoi(yytext); 
 	return S_FLOAT; //Pontos flutuantes
 }
 
-[0-9]+	{
+[\+\-]?[0-9]+	{
 	yylval.integer = atoi(yytext); 
 	return S_INT; //Apenas numeros inteiros
 }
@@ -34,6 +34,14 @@
 
 "/" {
 	return S_DIVIDE; //Divisao
+}
+
+"(" {
+	return S_LEFT; //Parenteses que abre
+}
+
+")" {
+	return S_RIGHT; //Parenteses que fecha
 }
 
 "ls" {

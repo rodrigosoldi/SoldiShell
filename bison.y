@@ -50,6 +50,9 @@ void yyerror(const char* s);
 %token S_MULTIPLE
 %token S_DIVIDE
 
+%token S_LEFT;
+%token S_RIGHT;
+
 %left S_PLUS
 %left S_MINUS
 %left S_MULTIPLE
@@ -226,61 +229,144 @@ comand:
 ;
 
 expression: 
+
+	//e.g. 2
 	S_INT {
 		$$ = $1; 
 	}
 
 	|
 
+	//e.g. 2 + 2
 	expression S_PLUS expression{
 		$$ = $1 + $3;
 	}
 
 	|
 
+	//e.g. 2 - 2
 	expression S_MINUS expression{
 		$$ = $1 - $3;
 	}
 
 	|
 
+	//e.g. 2 * 2
 	expression S_MULTIPLE expression{
 		$$ = $1 * $3;
 	}
 
 	|
 
+	//e.g. 2 / 2
 	expression S_DIVIDE expression{
-			$$ = $1 / $3;
+		$$ = $1 / $3;
 	}
+
+	|
+
+	//e.g. (2)
+	S_LEFT expression S_RIGHT{
+		$$ = $2;
+	}
+
 ;
 
 float_expression:
+
+	//e.g. 2.0
 	S_FLOAT {
 		$$ = $1;
 	}
 
 	|
 
+	//e.g. 2.0 + 2.0
 	float_expression S_PLUS float_expression {
 		$$ = $1 + $3;
 	}
 
 	|
 
+	//e.g. 2.0 - 2.0
 	float_expression S_MINUS float_expression {
 		$$ = $1 + $3;
 	}
 
 	|
 
+	//e.g. 2.0 * 2.0
 	float_expression S_MULTIPLE float_expression {
 		$$ = $1 * $3;
 	}
 
 	|
 
+	//e.g. 2.0 / 2.0
 	float_expression S_DIVIDE float_expression {
+		$$ = $1 / $3;
+	}
+
+	|
+
+	//e.g. (2.0)
+	S_LEFT float_expression S_RIGHT {
+		$$ = $2;
+	}
+
+	|
+
+	//e.g. 2.1 + 2	
+	float_expression S_PLUS expression {
+		$$ = $1 + $3;
+	}
+
+	|
+
+	//e.g. 2.1 - 2	
+	float_expression S_MINUS expression {
+		$$ = $1 - $3;
+	}
+
+	|
+
+	//e.g. 2.1 * 2	
+	float_expression S_MULTIPLE expression {
+		$$ = $1 * $3;
+	}
+
+	|
+
+	//e.g. 2.1 / 2	
+	float_expression S_DIVIDE expression {
+		$$ = $1 / $3;
+	}
+
+	|
+
+	//e.g. 2 + 2.1
+	expression S_PLUS float_expression {
+		$$ = $1 + $3;
+	}
+
+	|
+
+	//e.g. 2 - 2.1
+	expression S_MINUS float_expression {
+		$$ = $1 - $3;
+	}
+
+	|
+
+	//e.g. 2 * 2.1
+	expression S_MULTIPLE float_expression {
+		$$ = $1 * $3;
+	}
+
+	|
+
+	//e.g. 2 / 2.1
+	expression S_DIVIDE float_expression {
 		$$ = $1 / $3;
 	}
 ;
