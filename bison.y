@@ -144,9 +144,10 @@ comand:
 	   	|
 
 	   	// Comando KILL
-	   	S_KILL S_ID {
-	   		char comand[2048] = "kill "; 
-			$$ = system(strcat(comand,$2));
+	   	S_KILL expression {
+	   		char comand[2048]; 
+			snprintf(comand, sizeof(comand), "/bin/kill %d\n", $2);
+			$$ = system(comand);
 	   	}
 
 		| 
