@@ -8,6 +8,7 @@ lex.yy.c: flex.lex bison.tab.h
 
 shell: lex.yy.c bison.tab.c bison.tab.h
 	gcc -o soldishell bison.tab.c lex.yy.c -lfl
+	./soldishell
 
 clean:
 	rm soldishell bison.tab.c lex.yy.c bison.tab.h
