@@ -11,7 +11,7 @@
 %%
 
 [\+\-]?[0-9]+\.[0-9]+ {
-	yylval.pFloat = atoi(yytext); 
+	yylval.pFloat = atof(yytext); 
 	return S_FLOAT; //Pontos flutuantes
 }
 
